@@ -20,10 +20,15 @@ public class FileToActivemqRoute extends RouteBuilder{
     Endpoint activemqEndpoint;
 
     @Override
-    public void configure() throws Exception {
-        from(fileEndpoint)
-                .log("Sending message [${body}] to JMS...")
-                .to(activemqEndpoint);
+    public void configure(){
+
+        try {
+            from(fileEndpoint)
+                    .log("Sending message [${body}] to JMS...")
+                    .to(activemqEndpoint);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
 
 /*        from(activemqEndpoint)
                 .log("Sending message [${body}] to JMS...")
