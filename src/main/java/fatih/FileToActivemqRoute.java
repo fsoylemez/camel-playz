@@ -12,7 +12,7 @@ import javax.inject.Inject;
 public class FileToActivemqRoute extends RouteBuilder{
 
     @Inject
-    @Uri("file:src/data?noop=true")
+    @Uri("file:C:/data?noop=true")
     Endpoint fileEndpoint;
 
     @Inject
@@ -23,7 +23,7 @@ public class FileToActivemqRoute extends RouteBuilder{
     public void configure(){
 
         try {
-            from(fileEndpoint)
+            from(fileEndpoint).process("myProcessor")
                     .log("Sending message [${body}] to JMS...")
                     .to(activemqEndpoint);
         } catch(Exception e){
